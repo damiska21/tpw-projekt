@@ -1,0 +1,100 @@
+{
+  "vulnerabilities": [
+    {
+      "cveID": "CVE-2014-0160",
+      "title": "Heartbleed",
+      "severity": "Critical",
+      "score": 7.5,
+      "published": "2014-04-07",
+      "category": "Memory disclosure",
+      "affectedProducts": [
+        "OpenSSL 1.0.1 through 1.0.1f",
+        "OpenSSL 1.0.2-beta releases"
+      ],
+      "summary": "Chyba v TLS heartbeat rozhraní umožnila vzdálenému útočníkovi číst paměť procesu OpenSSL a odhalovat klíče, cookies nebo jiné citlivé údaje.",
+      "writeup": "Heartbleed vznikl v implementaci TLS heartbeat v OpenSSL. Server po přijetí Heartbeat requestu poslal zpět právě tolik bajtů, kolik bylo deklarováno v délce, aniž by ověřil, zda skutečně odpovídá délce dat v payloadu. To umožnilo útočníkovi poslat záměrně nepravdivý údaj o délce a získat obsah z paměti aplikace, která běžela v procesu OpenSSL. V praxi to vedlo k exfiltraci privátních klíčů, session IDs, hesel a dalších dat, která běžně zůstávají v heapu. Pro úspěch útoku nebylo nutné získat přístup k hostitelskému systému; stačilo zaslat požadavek přes internet. Z pohledu bezpečnosti byl problém mimořádně zákeřný, protože nebyl přímý RCE ani exploitable bug v aplikační logice, ale důsledek špatné bounds checking v nízkoúrovňové knihovně. To z něj udělalo typický případ 'memory disclosure', který postihl velké množství webových služeb a vyžádal si rychlé patchování a rotaci klíčů.",
+      "impact": "Útočník mohl číst obsah paměti procesu, ukrást TLS klíče, autentizační cookies, hesla a další citlivé údaje. V důsledku toho bylo nutné rotovat certifikáty a ověřovat kompromitaci serverů i po patchu.",
+      "references": [
+        "https://heartbleed.com/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2014-0160"
+      ]
+    },
+    {
+      "cveID": "CVE-2017-5638",
+      "title": "Apache Struts 2 OGNL Remote Code Execution",
+      "severity": "Critical",
+      "score": 10.0,
+      "published": "2017-03-07",
+      "category": "Remote code execution",
+      "affectedProducts": [
+        "Apache Struts 2.3.x",
+        "Apache Struts 2.5.x before patch level 2.5.12"
+      ],
+      "summary": "V Apache Struts 2 byla zjištěna exploitable vulnerability v OGNL evaluaci, která umožnila vzdálenému útočníkovi spouštět libovolný kód na serveru.",
+      "writeup": "Zranitelnost se týkala nepovolené evaluace OGNL výrazů v frameworku Apache Struts 2. V konkrétních endpointách, které přijímaly uživatelské vstupy a předávaly je jako část parametrů formuláře, se vyskytovala cesta, kde aplikace neověřila obsah proměnné a framework ji interpretoval jako kód. Útočník mohl poslat payload, který se rozvinul do spouštění příkazů v jazyce Java nebo shellu na hostitelském systému. Z hlediska útoku byla tato chyba velmi nebezpečná, protože se dala zneužít i bez autentizace u některých systémů a výsledek byl 'code execution' s plnými právy procesu. V případech jako Equifax to vedlo k masivní exfiltraci dat a k dlouhodobé reakci v oblasti incident response. Zranitelnost je klasickým příkladem toho, jak zranitelný framework s rozsáhlým používáním OGNL a dynamického vyhodnocování může vytvořit kritickou exploitable cestu přes HTTP request.",
+      "impact": "Útočník mohl spouštět libovolné příkazy, číst data z disku, měnit konfiguraci a získat plný přístup k aplikaci i infrastruktuře. Jednalo se o jednu z nejznámějších webových exploitable chyb v období 2017.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-5638",
+        "https://cwiki.apache.org/confluence/display/WW/Apache+Struts+2+Security+Bulletins"
+      ]
+    },
+    {
+      "cveID": "CVE-2019-11510",
+      "title": "Pulse Secure VPN Arbitrary File Read / RCE",
+      "severity": "Critical",
+      "score": 10.0,
+      "published": "2019-04-24",
+      "category": "Path traversal / remote code execution",
+      "affectedProducts": [
+        "Pulse Connect Secure 8.2, 8.3, 9.0",
+        "Pulse Policy Secure"
+      ],
+      "summary": "Zranitelnost v přední VPN bráně Pulse Connect Secure umožňovala číst libovolné soubory ze serveru a v některých konfiguracích i spouštět další útoky proti hostitelskému systému.",
+      "writeup": "Tato chyba spočívala v chybě v URL parsingu a file handling v Pulse Connect Secure. Útočník mohl zaslat požadavek, který přesunul cestu do chráněné části systému a získal přístup k interním konfiguracím, klíčům nebo souborům komponent používaných v appliance. V kontextu VPN brány to mělo velmi vysoký dopad, protože se typicky používala v expozici směrem k internetu a poskytovala přístup k citlivým interním službám. Následně se objevovaly další útoky typu 'arbitrary file read' a průzkum infrastruktury, což umožnilo útočníkovi získat další interní informace a připravit další stopy k exploitu. Zranitelnost je dobrou ukázkou toho, jak by i poměrně 'simple' path traversal v edge appliance mohl být v praxi mimořádně nebezpečný kvůli přístupu k důvěrným datům a křehkému network boundary.",
+      "impact": "Mohl být odhalen obsah systémových souborů, autentizační materiály a konfigurační data. V kombinaci s dalšími zranitelnostmi nebo chybami v konfiguraci se mohlo přejít k plnému kompromitování VPN gateway.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-11510",
+        "https://kb.pulsesecure.net/articles/Pulse_Security_Advisories/SA44101"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-44228",
+      "title": "Log4Shell",
+      "severity": "Critical",
+      "score": 10.0,
+      "published": "2021-12-09",
+      "category": "Remote code execution",
+      "affectedProducts": [
+        "Apache Log4j 2.0-beta9 through 2.15.0",
+        "Různé aplikace využívající Log4j 2"
+      ],
+      "summary": "V Apache Log4j 2 byla objevena zranitelnost, která umožnila vzdálenému útočníkovi spouštět kód v procesu aplikace prostřednictvím JNDI lookup a formátování logových zpráv.",
+      "writeup": "Log4Shell je klasický příklad zranitelnosti v logging frameworku, který se běžně používá v podnikových aplikacích. Chyba spočívala v tom, že Log4j zpracovával řetězce s formátováním ${jndi:ldap://...} a při logování je vykonával JNDI lookup. Tento mechanismus mohl přistupovat ke vzdálenému LDAP, RMI nebo DNS serveru a následně z něj stáhnout tzv. malicious Java payload. Pokud aplikace data z uživatelského vstupu logovala a zároveň umožňovala běh kódu v JVM, exploita se dařilo spustit bez předchozí autentizace na některých službách. Z pohledu útoku to znamenalo, že i nepříliš kreativní vstup, například v hlavičce HTTP requestu, se mohl stát vstupem pro code execution. Proto je Log4Shell považován za jednu z nejrozsáhlejších bezpečnostních událostí v moderní éře: postihl tisíce aplikací, infrastruktury a cloudových služeb, a vyžádal okamžitý patch a narychlo doplňkovou mitigaci.",
+      "impact": "Útočník mohl spouštět kód v kontextu aplikace, číst data, získávat přístup k interním službám a v některých případech zneužít aplikaci jako vstupní bod pro lateral movement v síti.",
+      "references": [
+        "https://logging.apache.org/log4j/2.x/security.html",
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-0847",
+      "title": "Dirty Pipe",
+      "severity": "High",
+      "score": 7.8,
+      "published": "2022-03-07",
+      "category": "Privilege escalation / arbitrary write",
+      "affectedProducts": [
+        "Linux kernel before 5.16.11",
+        "Linux kernel before 5.15.25",
+        "Linux kernel before 5.10.102"
+      ],
+      "summary": "V Linux kernelu byla objevena race condition ve filesystem pipe mechanizmu, která umožňovala útočníkovi přepsat data v paměti v rámci adresního prostoru procesu s vyššími právy.",
+      "writeup": "Dirty Pipe využíval nepřesnost v implementaci pipe buffering v Linux kernelu. Při zápisu do pipe a následném přístupu k datům z jiného procesu se vytvořila mezera v synchronizaci, která umožnila přepsat obsah souboru nebo paměti v kontextu procesu s vyššími oprávněními. Tento mechanismus nebyl tradičním 'shellcode injection' v userland aplikaci, ale byl schopný zneužít kernel bug k modifikaci souborů a získání oprávnění pro přístup k citlivým zdrojům. Z pohledu bezpečnosti je důležité, že útok fungoval bez nutnosti vlastní exploitable binary nebo běhu uživatelského kódu s root oprávněními; stačilo využít chybějící ověřování a race condition v kernelu. Dirty Pipe je dobrým příkladem toho, jak i relativně jednoduchá křehkost v kernel subsystému může vést k praktické privilege escalation, zejména tehdy, když aplikace a služby běží s rozšířenými právy na Linux serverech.",
+      "impact": "Útočník mohl upravovat obsah souborů, přepisovat privilegované konfigurační soubory a případně získat vyšší práva v systému. V praxi se jedná o jednu z nejvýraznějších privilege escalation zranitelností pro Linux v roce 2022.",
+      "references": [
+        "https://dirtypipe.cm4all.com/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-0847"
+      ]
+    }
+  ]
+}

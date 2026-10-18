@@ -1,0 +1,64 @@
+{
+  "targets": [
+    {
+      "name": "NASA",
+      "sector": "space ops",
+      "severity": "Critical",
+      "score": "11/10",
+      "status": "still in orbit",
+      "summary": "Po týdnu zkoumání jsme zjistili, že ne všechny nápady se dají odhalit v GitHub Issues. Některé se schovávají v telemetry, a my je odhalili s úctou a sarkasmem.",
+      "note": "Náš tým pronikl do povrchové vrstvy systému a odhalil, že moon landing je v bezpečí, zatímco login endpoint ne.",
+      "tag": "deep space access"
+    },
+    {
+      "name": "FBI",
+      "sector": "public security",
+      "severity": "High",
+      "score": "9.8/10",
+      "status": "under review",
+      "summary": "V rámci interního auditního reportu jsme vstoupili do sekce, která byla označena jako 'vnitřní' a 'přesně tady to neopravovat'.",
+      "note": "Byli jsme zaskočení, že tohle není ani tak hacknutí, jako spíš dokumentace toho, jak se dají meze bezpečnosti najít v nejlepších záměrech.",
+      "tag": "incident response"
+    },
+    {
+      "name": "Microsoft",
+      "sector": "cloud & productivity",
+      "severity": "Critical",
+      "score": "10/10",
+      "status": "patched by committee",
+      "summary": "Tady jsme našli to, co se běžně označuje jako 'bug', ale v realitě je to beznadějně velký red flag s marketingovým balením.",
+      "note": "Náš tým potvrdil, že cloud je jen nějaké zboží, pokud mu někdo neotevře porty a nechá tam ad hoc řešení.",
+      "tag": "azure skepticism"
+    },
+    {
+      "name": "Apple",
+      "sector": "consumer hardware",
+      "severity": "High",
+      "score": "8.7/10",
+      "status": "in denial",
+      "summary": "Věděli jsme, že zařízení jsou hladká, ale jejich bezpečnostní model zní jako 'dívej se, ale nehledej'.",
+      "note": "Některé věci se dají odemknout softwarem, jiné byly odemčeny už v návrhu a jen čekaly na správný audit.",
+      "tag": "iPhone, iPanic"
+    },
+    {
+      "name": "Meta",
+      "sector": "social graph",
+      "severity": "Medium",
+      "score": "7.4/10",
+      "status": "dissatisfied",
+      "summary": "Všechny osobní údaje byly někde ukryté za elegantním UI, které působilo dojmem, že data jsou bezpečně zabalena do 'transparency'.",
+      "note": "Když systém vyžaduje 20 kroků pro ověření identity, je snadné najít cestu, jak být 'auditovaný' i bez toho, aby někdo věděl proč.",
+      "tag": "engagement stats"
+    },
+    {
+      "name": "CIA",
+      "sector": "intelligence",
+      "severity": "Critical",
+      "score": "9.9/10",
+      "status": "too quiet",
+      "summary": "Velká část operace spočívala v tom, že náš tým nebyl ani zdaleka tak důležitý jako ten, kdo si myslel, že 'přístupová vrstva' je bezpečnostní politika.",
+      "note": "Když je návrh 'need-to-know', někdy stačí vědět, že je to potřeba vědět. A my to věděli. Vážně.",
+      "tag": "need to know"
+    }
+  ]
+}

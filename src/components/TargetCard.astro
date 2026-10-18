@@ -1,0 +1,146 @@
+---
+const { name, sector, severity, score, status, summary, note, tag } = Astro.props;
+import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
+---
+
+<article class="target-card">
+  <div class="target-card__topline">
+    <span class="target-card__tag">{tag}</span>
+    <span class="target-card__severity">{severity}</span>
+  </div>
+
+  <header class="target-card__header">
+    <p class="target-card__eyebrow">target // {sector}</p>
+    <h2 class="target-card__name">{name}</h2>
+  </header>
+
+  <div class="target-card__meta">
+    <div>
+      <dt>status</dt>
+      <dd>{status}</dd>
+    </div>
+    <div>
+      <dt>impact</dt>
+      <dd>{score}</dd>
+    </div>
+  </div>
+
+  <p class="target-card__summary">{summary}</p>
+  <p class="target-card__note">{note}</p>
+</article>
+
+<style define:vars={{ accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 }}>
+  .target-card {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--accentColor) 52%, transparent);
+    border-radius: 1rem;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--backgroundColor) 88%, black 12%),
+      color-mix(in srgb, var(--backgroundColor) 78%, var(--accentColor) 22%)
+    );
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accentColor) 15%, transparent);
+  }
+
+  .target-card__topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .target-card__tag,
+  .target-card__severity {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .target-card__tag {
+    background: color-mix(in srgb, var(--accentColorHover2) 18%, transparent);
+    color: var(--accentColorHover2);
+  }
+
+  .target-card__severity {
+    background: color-mix(in srgb, var(--accentColor) 18%, transparent);
+    color: var(--accentColor);
+  }
+
+  .target-card__header {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .target-card__eyebrow {
+    margin: 0;
+    color: var(--accentColorHover2);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .target-card__name {
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    line-height: 1.1;
+    color: var(--foregroundColor);
+  }
+
+  .target-card__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .target-card__meta div {
+    min-width: 0;
+    padding: 0.8rem 0.9rem;
+    background: color-mix(in srgb, var(--backgroundColor) 84%, black 16%);
+    border: 1px solid color-mix(in srgb, var(--accentColor) 18%, transparent);
+    border-radius: 0.8rem;
+  }
+
+  .target-card__meta dt {
+    margin: 0 0 0.35rem;
+    color: var(--accentColorHover);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .target-card__meta dd {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .target-card__summary,
+  .target-card__note {
+    margin: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    color: color-mix(in srgb, var(--foregroundColor) 88%, white 12%);
+  }
+
+  .target-card__note {
+    color: var(--accentColorHover2);
+    border-left: 2px solid color-mix(in srgb, var(--accentColorHover2) 55%, transparent);
+    padding-left: 0.8rem;
+  }
+
+  .target-card__name,
+  .target-card__tag,
+  .target-card__severity,
+  .target-card__meta dd {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+</style>

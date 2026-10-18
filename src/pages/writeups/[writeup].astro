@@ -1,0 +1,62 @@
+---
+import VulnCard from "../../components/VulnCard.astro";
+import Layout from "../../layouts/MainLayout.astro";
+
+export async function getStaticPaths() {
+  const vulnData = (await import("../../data/vulns.json")).default;
+
+  return vulnData.vulnerabilities.map((vuln) => ({
+    params: { writeup: vuln.cveID },
+    props: { vuln },
+  }));
+}
+
+const { vuln } = Astro.props;
+---
+
+<Layout>
+  <VulnCard
+    score={vuln.score}
+    severity={vuln.severity}
+    published={vuln.published}
+    cveID={vuln.cveID}
+    title={vuln.title}
+    category={vuln.category}
+  />
+  <h2>Summary</h2>
+  <p>{vuln.summary}</p>
+
+  <h2>Writeup</h2>
+  <p>{vuln.writeup}</p>
+
+  <h2>Impact</h2>
+  <p>{vuln.impact}</p>
+
+  <h2>Affected products</h2>
+  <ul>
+    {vuln.affectedProducts.map((product) => <li>{product}</li>)}
+  </ul>
+
+  <h2>References</h2>
+  <ul>
+    {
+      vuln.references.map((ref) => (
+        <li>
+          <a href={ref}>{ref}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  h1,
+  h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  p,
+  ul {
+    margin-top: 0.5rem;
+  }
+</style>

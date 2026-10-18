@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/MainLayout.astro';
+import TargetCard from '../components/TargetCard.astro';
+import targets from '../data/targets.json';
+
+const targetList = targets.targets;
+---
+
+<Layout>
+  <section class="targets-page">
+    <h1>Koho jsme hacknuli?</h1>
+    <p class="targets-page__intro">
+      Jasně, zrovna teď je všechno v režimu “tohle bylo jen v testovacím prostředí”,
+      ale my jsme si našli pár velkých jmen a pár ještě větších datových záznamů.
+    </p>
+
+    <div class="targets-grid">
+      {targetList.map((target) => (
+        <TargetCard
+          name={target.name}
+          sector={target.sector}
+          severity={target.severity}
+          score={target.score}
+          status={target.status}
+          summary={target.summary}
+          note={target.note}
+          tag={target.tag}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .targets-page {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .targets-page__intro {
+    max-width: 62ch;
+  }
+
+  .targets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+</style>

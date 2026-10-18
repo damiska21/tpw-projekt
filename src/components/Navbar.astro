@@ -1,0 +1,101 @@
+---
+import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
+
+const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const siteLabel = pathname === "/" ? "/home $ ls ~/" : `/home/site${pathname} $ ls ~/`;
+const compactPathname = Astro.url.pathname.replace(/^.*\//, '');
+const compactLabel = pathname === "/" ? "home" : compactPathname;;
+//const compactLabel = pathname === "/" ? "Home" : decodeURIComponent(pathname.split("/").filter(Boolean).at(-1) ?? "Page");
+
+const links = [
+    { href: "/", label: "Home" },
+    { href: "/writeups", label: "Writeups" },
+    { href: "/targets", label: "Targets" },
+];
+---
+
+<nav class="navbar" aria-label="Primary">
+    <a class="navbar__brand" href="/" aria-label={siteLabel}>
+        <span class="navbar__brand-full" aria-hidden="true">{siteLabel}</span>
+        <span class="navbar__brand-compact" aria-hidden="true">{compactLabel}</span>
+    </a>
+    <div class="navbar__links" aria-label="Directory listing">
+        {links.map((link) => (
+            <a class:list={["navbar__link", pathname === link.href ? "is-active" : undefined]} href={link.href}>
+                {link.label}
+            </a>
+        ))}
+    </div>
+</nav>
+
+<style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: color-mix(in srgb, var(--backgroundColor) 88%, black 12%);
+        border-bottom: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
+    }
+
+    .navbar__brand {
+        color: var(--accentColor);
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .navbar__brand-compact {
+        display: none;
+    }
+
+    .navbar__links {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        white-space: nowrap;
+        padding-left: 1rem;
+    }
+
+    .navbar__link {
+        color: var(--foregroundColor);
+        text-decoration: none;
+    }
+
+    .navbar__link:hover {
+        color: var(--accentColorHover);
+    }
+    .navbar__link.is-active {
+        color: var(--accentColorHover2);
+    }
+
+    @media (min-width: 48rem) {
+        .navbar {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .navbar__links {
+            padding-left: 0;
+        }
+    }
+
+    @media (max-width: 42rem) {
+        .navbar__brand {
+            font-size: 0.95rem;
+            line-height: 1.1;
+        }
+
+        .navbar__brand-full {
+            display: none;
+        }
+
+        .navbar__brand-compact {
+            display: inline;
+        }
+    }
+</style>
