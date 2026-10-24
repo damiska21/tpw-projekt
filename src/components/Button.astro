@@ -1,0 +1,72 @@
+---
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  ariaLabel,
+  class: className = "",
+  isExternal = false,
+  ...attrs
+} = Astro.props;
+
+const Element = href ? "a" : "button";
+const rel = isExternal ? "noopener noreferrer" : undefined;
+const target = isExternal ? "_blank" : undefined;
+
+
+import {
+  accentColor,
+  accentColorHover,
+  backgroundColor,
+  foregroundColor,
+  accentColorHover2,
+} from "../data/theme";
+---
+
+<Element
+  {...attrs}
+  href={href}
+  type={href ? undefined : type}
+  target={target}
+  rel={rel}
+  aria-label={ariaLabel}
+  class:list={[
+    "button",
+    `button--${variant}`,
+    `button--${size}`,
+    className,
+  ]}
+>
+  <slot />
+</Element>
+
+<style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+  @layer components {
+    .button {
+      border: 1px solid var(--accentColor);
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      transform: translateY(1px);
+    }
+
+    .button:focus-visible {
+      outline: 2px solid var(--accentColorHover2);
+      outline-offset: 3px;
+    }
+
+    .button--primary {
+      background: var(--backgroundColor);
+      color: var(--accentColor);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-bg) 35%, transparent);
+    }
+
+    .button--primary:hover {
+      background: var(--button-hover-bg);
+      color: var(--button-hover-fg);
+    }
+  }
+</style>

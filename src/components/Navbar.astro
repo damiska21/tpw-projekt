@@ -1,5 +1,12 @@
 ---
-import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
+import Button from "./Button.astro";
+import {
+  accentColor,
+  accentColorHover,
+  backgroundColor,
+  foregroundColor,
+  accentColorHover2,
+} from "../data/theme";
 
 const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const siteLabel = pathname === "/" ? "/home $ ls ~/" : `/home/site${pathname} $ ls ~/`;
@@ -8,94 +15,262 @@ const compactLabel = pathname === "/" ? "home" : compactPathname;;
 //const compactLabel = pathname === "/" ? "Home" : decodeURIComponent(pathname.split("/").filter(Boolean).at(-1) ?? "Page");
 
 const links = [
-    { href: "/", label: "Home" },
-    { href: "/writeups", label: "Writeups" },
-    { href: "/targets", label: "Targets" },
+  { href: "/", label: "Home" },
+  { href: "/writeups", label: "Writeups" },
+  { href: "/targets", label: "Targets" },
 ];
 ---
 
-<nav class="navbar" aria-label="Primary">
+<nav class="navbar" aria-label="Hlavní navigace">
+  <div class="navbar__inner">
     <a class="navbar__brand" href="/" aria-label={siteLabel}>
-        <span class="navbar__brand-full" aria-hidden="true">{siteLabel}</span>
-        <span class="navbar__brand-compact" aria-hidden="true">{compactLabel}</span>
+      <span class="navbar__brand-full" aria-hidden="true">{siteLabel}</span>
+      <span class="navbar__brand-compact" aria-hidden="true">{compactLabel}</span>
     </a>
+
+    <Button
+      class="navbar__toggle"
+      type="button"
+      aria-label="Otevřít nebo zavřít navigaci"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+      data-nav-toggle
+    >
+      <span class="navbar__toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span class="navbar__toggle-label">Menu</span>
+    </Button>
+  </div>
+
+  <div class="navbar__panel" id="primary-navigation" data-nav-panel>
     <div class="navbar__links" aria-label="Directory listing">
-        {links.map((link) => (
-            <a class:list={["navbar__link", pathname === link.href ? "is-active" : undefined]} href={link.href}>
-                {link.label}
-            </a>
-        ))}
+      {links.map((link) => (
+        <a
+          class:list={["navbar__link", pathname === link.href ? "is-active" : undefined]}
+          href={link.href}
+        >
+          {link.label}
+        </a>
+      ))}
     </div>
+  </div>
 </nav>
 
+<script is:inline>
+  const initNavbar = () => {
+    const toggleButton = document.querySelector("[data-nav-toggle]");
+    const navPanel = document.querySelector("[data-nav-panel]");
+
+    if (!toggleButton || !navPanel || toggleButton.dataset.navBound === "true") {
+      return;
+    }
+
+    const navLinks = document.querySelectorAll(".navbar__link");
+    const setMenuState = (nextState) => {
+      toggleButton.setAttribute("aria-expanded", String(nextState));
+      navPanel.classList.toggle("is-open", nextState);
+    };
+
+    toggleButton.addEventListener("click", () => {
+      const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+      setMenuState(!isExpanded);
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => setMenuState(false));
+    });
+
+    toggleButton.dataset.navBound = "true";
+  };
+
+  initNavbar();
+  document.addEventListener("astro:page-load", initNavbar);
+</script>
+
 <style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+  @layer components {
     .navbar {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-        padding: 1rem 1.25rem;
-        background: color-mix(in srgb, var(--backgroundColor) 88%, black 12%);
-        border-bottom: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: grid;
+      gap: 0;
+      padding: 1rem 1.25rem;
+      background: color-mix(in srgb, var(--backgroundColor) 88%, black 12%);
+      border-bottom: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
+      backdrop-filter: blur(8px);
+    }
+
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
     .navbar__brand {
-        color: var(--accentColor);
-        font-weight: 700;
-        text-decoration: none;
-        white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.5rem;
+      color: var(--accentColor);
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .navbar__brand:hover {
+      color: var(--accentColorHover);
     }
 
     .navbar__brand-compact {
-        display: none;
+      display: none;
+    }
+
+    .navbar__panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      overflow: hidden;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        grid-template-rows 0.25s ease,
+        opacity 0.2s ease,
+        margin-top 0.2s ease;
+      margin-top: 0;
+    }
+
+    .navbar__panel.is-open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      margin-top: 0.25rem;
     }
 
     .navbar__links {
-        display: flex;
-        align-items: center;
-        gap: 1.25rem;
-        flex-wrap: wrap;
-        white-space: nowrap;
-        padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .navbar__link {
-        color: var(--foregroundColor);
-        text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.5rem;
+      color: var(--foregroundColor);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .navbar__link:hover {
-        color: var(--accentColorHover);
+    .navbar__link:hover,
+    .navbar__link:focus-visible {
+      color: var(--accentColorHover);
     }
+
     .navbar__link.is-active {
-        color: var(--accentColorHover2);
+      color: var(--accentColorHover2);
     }
 
-    @media (min-width: 48rem) {
-        .navbar {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
+    .navbar__toggle {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.3rem;
+      padding: 0.35rem 0.7rem;
+      color: var(--foregroundColor);
+      border-color: color-mix(in srgb, var(--accentColor) 65%, transparent);
+      background: color-mix(in srgb, var(--backgroundColor) 78%, var(--accentColor) 22%);
+      box-shadow: inset 0 1px 0 color-mix(in srgb, var(--foregroundColor) 12%, transparent);
+    }
 
-        .navbar__links {
-            padding-left: 0;
-        }
+    .navbar__toggle:hover {
+      background: color-mix(in srgb, var(--backgroundColor) 65%, var(--accentColor) 35%);
+      color: var(--accentColorHover2);
+      transform: none;
+    }
+
+    .navbar__toggle[aria-expanded="true"] {
+      background: color-mix(in srgb, var(--backgroundColor) 60%, var(--accentColor) 40%);
+      color: var(--accentColorHover2);
+    }
+
+    .navbar__toggle-icon {
+      display: inline-grid;
+      gap: 0.18rem;
+      width: 1rem;
+    }
+
+    .navbar__toggle-icon span {
+      display: block;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .navbar__toggle-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 52rem) {
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .navbar__inner {
+        width: auto;
+      }
+
+      .navbar__panel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        overflow: visible;
+        grid-template-rows: none;
+        margin-top: 0;
+      }
+
+      .navbar__toggle {
+        display: none;
+      }
+
+      .navbar__links {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.25rem;
+        width: auto;
+      }
     }
 
     @media (max-width: 42rem) {
-        .navbar__brand {
-            font-size: 0.95rem;
-            line-height: 1.1;
-        }
+      .navbar__brand {
+        font-size: 0.95rem;
+        line-height: 1.1;
+      }
 
-        .navbar__brand-full {
-            display: none;
-        }
+      .navbar__brand-full {
+        display: none;
+      }
 
-        .navbar__brand-compact {
-            display: inline;
-        }
+      .navbar__brand-compact {
+        display: inline;
+      }
     }
+  }
 </style>
