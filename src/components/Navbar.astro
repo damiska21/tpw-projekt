@@ -10,9 +10,9 @@ import {
 
 const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const siteLabel = pathname === "/" ? "/home $ ls ~/" : `/home/site${pathname} $ ls ~/`;
-const compactPathname = Astro.url.pathname.replace(/^.*\//, '');
-const compactLabel = pathname === "/" ? "home" : compactPathname;;
-//const compactLabel = pathname === "/" ? "Home" : decodeURIComponent(pathname.split("/").filter(Boolean).at(-1) ?? "Page");
+const compactLabel = pathname === "/"
+  ? "home"
+  : decodeURIComponent(pathname.split("/").filter(Boolean).at(-1) ?? "home");
 
 const links = [
   { href: "/", label: "Home" },
@@ -258,7 +258,7 @@ const links = [
       }
     }
 
-    @media (max-width: 42rem) {
+    @media (max-width: 40rem) {
       .navbar__brand {
         font-size: 0.95rem;
         line-height: 1.1;

@@ -1,43 +1,19 @@
-# Astro Starter Kit: Minimal
+# projekt do předmětu Technologie pro publikování na webu 1 - Astro SSG
+vybral jsem si variantu a, varianta b byla zbytečně komplikovaná zadáním :D
+## požadavky
+Požadavky na projekt (Varianta A)
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Komponenty a variabilita: Vytvoření minimálně 5 samostatných, opakovaně použitelných UI komponent s využitím modifikátorů (např. karta obsahu, tlačítko, hero banner, akordeon, navigace). 
+Datová vrstva: Načítání dynamického obsahu ze strukturovaného .json souboru do komponent přes props / šablonovací logiku.
+CSS Architektura:
+    Využití kaskádových vrstev (@layer reset, tokens, base, components, utilities;).
+    Definice CSS proměnných / Design Tokens v :root pro barvy, typografii a mezery.
+    Důsledné dodržení BEM metodiky pro pojmenování tříd.
+Layout a Responzivita:
+    Mobilní navigace (rozbalovací/hamburger). 
+    Využití CSS Flexboxu a CSS Gridu pro rozvržení stránek.
+    Aplikace CSS Container Queries (@container) alespoňn u jedné hlavní komponenty.
+Kvalita a Přístupnost:
+    Sémantický HTML5 kód (<main>, <article>, <header>, <nav>, <details>).
+    Dodržení přístupnosti (viditelný :focus-visible, kontrast barev, atributy alt a ARIA).
+    Kód bez kritických chyb ve W3C validátorech.
