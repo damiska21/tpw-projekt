@@ -8,6 +8,7 @@ const targetList = targets.targets;
 
 <Layout>
   <section class="targets-page">
+    <p class="hero__eyebrow">// target directory</p>
     <h1>Koho jsme hacknuli?</h1>
     <p class="targets-page__intro">
       Jasně, zrovna teď je všechno v režimu “tohle bylo jen v testovacím prostředí”,
@@ -34,8 +35,17 @@ const targetList = targets.targets;
 <style>
   .targets-page {
     display: grid;
-    gap: 1.5rem;
+    gap: 1rem;
+    padding: 2rem 0 1rem;
   }
+
+  .hero__eyebrow {
+    color: var(--accentColorHover2);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
   .targets-page__intro {
     max-width: 62ch;
   }

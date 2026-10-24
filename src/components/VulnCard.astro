@@ -4,99 +4,106 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
 ---
 
 <article class="vuln-card">
-    <header class="vuln-card__header">
-        <p class="vuln-card__eyebrow">{cveID}</p>
-        <h1 class="vuln-card__title">{title}</h1>
-    </header>
+  <header class="vuln-card__header">
+    <p class="vuln-card__eyebrow">{cveID}</p>
+    <h2 class="vuln-card__title">{title}</h2>
+  </header>
 
-    <dl class="vuln-card__meta">
-        <div class="vuln-card__meta-item">
-            <dt>Severity</dt>
-            <dd>{severity}</dd>
-        </div>
-        <div class="vuln-card__meta-item">
-            <dt>CVSS</dt>
-            <dd>{score}</dd>
-        </div>
-        <div class="vuln-card__meta-item">
-            <dt>Published</dt>
-            <dd>{published}</dd>
-        </div>
-        <div class="vuln-card__meta-item">
-            <dt>Category</dt>
-            <dd>{category}</dd>
-        </div>
-    </dl>
+  <dl class="vuln-card__meta">
+    <div class="vuln-card__meta-item">
+      <dt>Severity</dt>
+      <dd>{severity}</dd>
+    </div>
+    <div class="vuln-card__meta-item">
+      <dt>CVSS</dt>
+      <dd>{score}</dd>
+    </div>
+    <div class="vuln-card__meta-item">
+      <dt>Published</dt>
+      <dd>{published}</dd>
+    </div>
+    <div class="vuln-card__meta-item">
+      <dt>Category</dt>
+      <dd>{category}</dd>
+    </div>
+  </dl>
 </article>
 
 <style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
-        .vuln-card {
-                container-type: inline-size;
-                container-name: vuln-card;
-                display: grid;
-                gap: 1rem;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                border: 1px solid color-mix(in srgb, var(--accentColor) 55%, transparent);
-                border-radius: 1rem;
-                background: color-mix(in srgb, var(--backgroundColor) 92%, black 8%);
-                color: var(--foregroundColor);
-        }
-
-        .vuln-card__header {
-                display: grid;
-                gap: 0.35rem;
-        }
-
-        .vuln-card__eyebrow {
-                margin: 0;
-                color: var(--accentColorHover2);
-                font-size: 0.875rem;
-                letter-spacing: 0.08em;
-                text-transform: uppercase;
-        }
-
-        .vuln-card__title {
-                margin: 0;
-                color: var(--accentColor);
-                font-size: clamp(1.5rem, 4vw, 2.25rem);
-                line-height: 1.1;
-        }
-
-        .vuln-card__meta {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-                margin: 0;
-        }
-
-        .vuln-card__meta-item {
-                padding: 0.85rem 1rem;
-                border-radius: 0.85rem;
-                background: color-mix(in srgb, var(--backgroundColor) 82%, var(--accentColor) 18%);
-        }
-
-        .vuln-card__meta-item dt {
-                margin: 0 0 0.35rem;
-                color: var(--accentColorHover);
-                font-size: 0.8rem;
-                letter-spacing: 0.06em;
-                text-transform: uppercase;
-        }
-
-        .vuln-card__meta-item dd {
-                margin: 0;
-                font-size: 1rem;
-        }
-
-        @container vuln-card (min-width: 34rem) {
-                .vuln-card {
-                        grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-                        align-items: start;
-                }
-
-                .vuln-card__meta {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
+  @layer components {
+    .vuln-card {
+      container-type: inline-size;
+      container-name: vuln-card;
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid color-mix(in srgb, var(--accentColor) 55%, transparent);
+      border-radius: 1rem;
+      background: color-mix(in srgb, var(--backgroundColor) 92%, black 8%);
+      color: var(--foregroundColor);
     }
+
+    .vuln-card__header {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .vuln-card__eyebrow {
+      margin: 0;
+      color: var(--accentColorHover2);
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .vuln-card__title {
+      margin: 0;
+      color: var(--accentColor);
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      line-height: 1.1;
+    }
+
+    .vuln-card__meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .vuln-card__meta-item {
+      padding: 0.85rem 1rem;
+      border-radius: 0.85rem;
+      background: color-mix(in srgb, var(--backgroundColor) 82%, var(--accentColor) 18%);
+    }
+
+    .vuln-card__meta-item dt {
+      margin: 0 0 0.35rem;
+      color: var(--accentColorHover);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .vuln-card__meta-item dd {
+      margin: 0;
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    @container vuln-card (max-width: 26rem) {
+      .vuln-card__meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 52rem) {
+      .vuln-card {
+        grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+        align-items: start;
+      }
+    }
+  }
 </style>

@@ -2,21 +2,30 @@
 import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
 ---
 
-<footer >
-  <p>Damián Roháček</p>
-  <p>Made with Astro</p>
+<footer>
+  <div class="footer__inner">
+    <p>Damián Roháček</p>
+    <p>Made with Astro</p>
+  </div>
 </footer>
 
-<style define:vars={{ accentColorHover2 }}>
-footer {
+<style define:vars={{ accentColor, accentColorHover2 }}>
+  footer {
     margin-top: auto;
     border-top: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer__inner {
+    width: min(100%, 1200px);
+    margin: 0 auto;
     padding: 0 1.5rem;
-    margin-left: 25px;
-    margin-right: 25px;
-}
-a {
+    box-sizing: border-box;
+  }
+
+  a {
     color: var(--accentColorHover2);
     text-decoration: none;
-}
+  }
 </style>

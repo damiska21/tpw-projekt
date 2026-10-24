@@ -98,6 +98,8 @@ const links = [
       z-index: 1000;
       display: grid;
       gap: 0;
+      width: 100%;
+      box-sizing: border-box;
       padding: 1rem 1.25rem;
       background: color-mix(in srgb, var(--backgroundColor) 88%, black 12%);
       border-bottom: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
@@ -167,6 +169,7 @@ const links = [
       color: var(--foregroundColor);
       text-decoration: none;
       font-weight: 600;
+      transition: color 0.2s ease;
     }
 
     .navbar__link:hover,
@@ -176,6 +179,7 @@ const links = [
 
     .navbar__link.is-active {
       color: var(--accentColorHover2);
+      text-shadow: 0 0 0.4rem color-mix(in srgb, var(--accentColorHover2) 45%, transparent);
     }
 
     .navbar__toggle {

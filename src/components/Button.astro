@@ -14,7 +14,6 @@ const Element = href ? "a" : "button";
 const rel = isExternal ? "noopener noreferrer" : undefined;
 const target = isExternal ? "_blank" : undefined;
 
-
 import {
   accentColor,
   accentColorHover,
@@ -44,13 +43,27 @@ import {
 <style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
   @layer components {
     .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 1px solid var(--accentColor);
-      border-radius: 25px;
+      border-radius: 999px;
+      padding: 0.7rem 1.1rem;
       cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+      text-decoration: none;
+      font-weight: 700;
+      line-height: 1.2;
+      background: var(--backgroundColor);
+      color: var(--foregroundColor);
     }
 
     .button:hover {
-      transform: translateY(1px);
+      transform: translateY(-1px);
     }
 
     .button:focus-visible {
@@ -59,14 +72,35 @@ import {
     }
 
     .button--primary {
-      background: var(--backgroundColor);
+      border-color: color-mix(in srgb, var(--accentColor) 75%, transparent);
+      background: color-mix(in srgb, var(--backgroundColor) 75%, var(--accentColor) 25%);
       color: var(--accentColor);
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--button-bg) 35%, transparent);
     }
 
     .button--primary:hover {
-      background: var(--button-hover-bg);
-      color: var(--button-hover-fg);
+      background: color-mix(in srgb, var(--backgroundColor) 60%, var(--accentColor) 40%);
+      color: var(--accentColorHover2);
+    }
+
+    .button--secondary {
+      border-color: color-mix(in srgb, var(--foregroundColor) 50%, transparent);
+      background: transparent;
+      color: var(--foregroundColor);
+    }
+
+    .button--secondary:hover {
+      border-color: color-mix(in srgb, var(--accentColorHover2) 75%, transparent);
+      color: var(--accentColorHover2);
+    }
+
+    .button--sm {
+      padding: 0.45rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .button--md {
+      padding: 0.7rem 1.1rem;
+      font-size: 0.95rem;
     }
   }
 </style>

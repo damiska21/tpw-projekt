@@ -17,6 +17,10 @@ import {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Generic hacker-themed security blog and target index built with Astro."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
@@ -24,9 +28,9 @@ import {
   </head>
   <body>
     <Navbar />
-    <div class="content">
+    <main id="main-content" class="site-main">
       <slot />
-    </div>
+    </main>
     <Footer />
   </body>
 </html>
@@ -44,43 +48,124 @@ import {
   }}
 >
   @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
-  @layer base {
-    :root,
-    body {
+
+  @layer reset {
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    p,
+    ul,
+    ol,
+    dl,
+    dd,
+    dt {
       margin: 0;
-      width: 100%;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  @layer tokens {
+    :root {
+      --space-1: 0.5rem;
+      --space-2: 0.75rem;
+      --space-3: 1rem;
+      --space-4: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --radius-sm: 0.75rem;
+      --radius-md: 1rem;
+      --radius-lg: 1.5rem;
+      --shadow-card: 0 0 0 1px color-mix(in srgb, var(--accentColor) 15%, transparent);
+      --border-soft: color-mix(in srgb, var(--accentColor) 45%, transparent);
+    }
+  }
+
+  @layer base {
+    :root {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       background-color: var(--backgroundColor);
       color: var(--foregroundColor);
       font-family: "JetBrains Mono", monospace;
     }
-    .content {
-      padding: 1rem 1.25rem;
-      line-height: 1.6;
-    max-width: 1200px;
-    margin: 0 auto;
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at top, color-mix(in srgb, var(--accentColor) 10%, transparent), transparent 30%),
+        var(--backgroundColor);
+      color: var(--foregroundColor);
     }
 
-  h1 {
-    margin: 0;
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    line-height: 1.05;
-  }
-  button {
-    margin:0;
+    .site-main {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+      padding: 1rem 1.25rem 2rem;
+      line-height: 1.6;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accentColorHover2);
+      outline-offset: 3px;
+    }
   }
 
-  }
   @layer components {
     a {
       color: var(--accentColor);
-      text-decoration: none;
+      transition: color 0.2s ease;
     }
+
     a:hover {
       color: var(--accentColorHover);
-      transition-duration: 0.2s;
+    }
+  }
+
+  @layer utilities {
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   }
 </style>

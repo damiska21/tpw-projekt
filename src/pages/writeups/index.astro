@@ -6,22 +6,49 @@ const { vulnerabilities } = vulnData;
 ---
 
 <Layout>
-  <h1>Writeups</h1>
-  <ul>
-    {vulnerabilities.map((vuln) => (
-      <li>
-        <a href={`/writeups/${vuln.cveID}`}>{vuln.title}</a>
-        <span> — {vuln.cveID}</span>
-      </li>
-    ))}
-  </ul>
+  <section class="writeups-page">
+    <p class="hero__eyebrow">// incident log</p>
+    <h1>Writeups</h1>
+    <ul>
+      {vulnerabilities.map((vuln) => (
+        <li>
+          <a href={`/writeups/${vuln.cveID}`}>{vuln.title}</a>
+          <span> — {vuln.cveID}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Layout>
 
 <style>
+  .writeups-page {
+    display: grid;
+    gap: 1rem;
+    padding: 2rem 0 1rem;
+  }
+
+  .hero__eyebrow {
+    color: var(--accentColorHover2);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: var(--accentColor);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--accentColorHover);
+  }
+
   ul {
     padding-left: 1.25rem;
   }
+
   li {
     margin-bottom: 0.5rem;
-  };
+  }
 </style>
