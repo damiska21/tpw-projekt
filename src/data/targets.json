@@ -3,7 +3,7 @@
     {
       "name": "NASA",
       "sector": "space ops",
-      "severity": "Critical",
+      "severity": "Crit",
       "score": "11/10",
       "status": "still in orbit",
       "summary": "Po týdnu zkoumání jsme zjistili, že ne všechny nápady se dají odhalit v GitHub Issues. Některé se schovávají v telemetry, a my je odhalili s úctou a sarkasmem.",
@@ -23,7 +23,7 @@
     {
       "name": "Microsoft",
       "sector": "cloud & productivity",
-      "severity": "Critical",
+      "severity": "Crit",
       "score": "10/10",
       "status": "patched by committee",
       "summary": "Tady jsme našli to, co se běžně označuje jako 'bug', ale v realitě je to beznadějně velký red flag s marketingovým balením.",
@@ -38,12 +38,12 @@
       "status": "in denial",
       "summary": "Věděli jsme, že zařízení jsou hladká, ale jejich bezpečnostní model zní jako 'dívej se, ale nehledej'.",
       "note": "Některé věci se dají odemknout softwarem, jiné byly odemčeny už v návrhu a jen čekaly na správný audit.",
-      "tag": "iPhone, iPanic"
+      "tag": "iPhone - iPanic"
     },
     {
       "name": "Meta",
       "sector": "social graph",
-      "severity": "Medium",
+      "severity": "Med",
       "score": "7.4/10",
       "status": "dissatisfied",
       "summary": "Všechny osobní údaje byly někde ukryté za elegantním UI, které působilo dojmem, že data jsou bezpečně zabalena do 'transparency'.",
@@ -53,7 +53,7 @@
     {
       "name": "CIA",
       "sector": "intelligence",
-      "severity": "Critical",
+      "severity": "Crit",
       "score": "9.9/10",
       "status": "too quiet",
       "summary": "Velká část operace spočívala v tom, že náš tým nebyl ani zdaleka tak důležitý jako ten, kdo si myslel, že 'přístupová vrstva' je bezpečnostní politika.",

@@ -15,48 +15,68 @@ const { vuln } = Astro.props;
 ---
 
 <Layout>
-  <VulnCard
-    score={vuln.score}
-    severity={vuln.severity}
-    published={vuln.published}
-    cveID={vuln.cveID}
-    title={vuln.title}
-    category={vuln.category}
-  />
-  <h2>Summary</h2>
-  <p>{vuln.summary}</p>
+  <section class="writeup-page">
+    <div class="writeup-page__card">
+      <VulnCard
+        score={vuln.score}
+        severity={vuln.severity}
+        published={vuln.published}
+        cveID={vuln.cveID}
+        title={vuln.title}
+        category={vuln.category}
+      />
+    </div>
 
-  <h2>Writeup</h2>
-  <p>{vuln.writeup}</p>
+    <h2 class="writeup-page__heading">Summary</h2>
+    <p class="writeup-page__text">{vuln.summary}</p>
 
-  <h2>Impact</h2>
-  <p>{vuln.impact}</p>
+    <h2 class="writeup-page__heading">Writeup</h2>
+    <p class="writeup-page__text">{vuln.writeup}</p>
 
-  <h2>Affected products</h2>
-  <ul>
-    {vuln.affectedProducts.map((product) => <li>{product}</li>)}
-  </ul>
+    <h2 class="writeup-page__heading">Impact</h2>
+    <p class="writeup-page__text">{vuln.impact}</p>
 
-  <h2>References</h2>
-  <ul>
-    {
-      vuln.references.map((ref) => (
-        <li>
-          <a href={ref}>{ref}</a>
-        </li>
-      ))
-    }
-  </ul>
+    <h2 class="writeup-page__heading">Affected products</h2>
+    <ul class="writeup-page__list">
+      {vuln.affectedProducts.map((product) => <li class="writeup-page__list-item">{product}</li>)}
+    </ul>
+
+    <h2 class="writeup-page__heading">References</h2>
+    <ul class="writeup-page__list writeup-page__list--references">
+      {
+        vuln.references.map((ref) => (
+          <li class="writeup-page__list-item">
+            <a class="writeup-page__link" href={ref}>{ref}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>
 
 <style>
-  h1,
-  h2 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  p,
-  ul {
-    margin-top: 0.5rem;
+  @layer components {
+    .writeup-page {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .writeup-page__card {
+      margin-bottom: 0.5rem;
+    }
+
+    .writeup-page__heading {
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .writeup-page__text,
+    .writeup-page__list {
+      margin-top: 0.5rem;
+    }
+
+    .writeup-page__list--references {
+      overflow-wrap: anywhere;
+    }
   }
 </style>

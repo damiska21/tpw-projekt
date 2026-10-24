@@ -3,7 +3,7 @@ const { name, sector, severity, score, status, summary, note, tag } = Astro.prop
 import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
 ---
 
-<article class="target-card">
+<section class="target-card">
   <div class="target-card__topline">
     <span class="target-card__tag">{tag}</span>
     <span class="target-card__severity">{severity}</span>
@@ -27,7 +27,7 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
 
   <p class="target-card__summary">{summary}</p>
   <p class="target-card__note">{note}</p>
-</article>
+</section>
 
 <style define:vars={{ accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 }}>
   @layer components {
@@ -35,8 +35,11 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
       container-type: inline-size;
       container-name: target-card;
       display: grid;
+      grid-template-rows: minmax(2.4rem, auto) minmax(5.8rem, auto) minmax(4.6rem, auto) auto auto;
+      align-content: start;
       gap: 1rem;
       min-width: 0;
+      height: 100%;
       padding: 1.2rem;
       border: 1px solid color-mix(in srgb, var(--accentColor) 52%, transparent);
       border-radius: 1rem;
@@ -51,9 +54,10 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
     .target-card__topline {
       display: flex;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.65rem;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      min-height: 2.4rem;
     }
 
     .target-card__tag,
@@ -80,6 +84,7 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
     .target-card__header {
       display: grid;
       gap: 0.5rem;
+      min-height: 5.8rem;
     }
 
     .target-card__eyebrow {
@@ -102,9 +107,13 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.75rem;
       min-width: 0;
+      min-height: 4.6rem;
+      align-items: stretch;
     }
 
     .target-card__meta div {
+      display: grid;
+      align-content: start;
       min-width: 0;
       padding: 0.8rem 0.9rem;
       background: color-mix(in srgb, var(--backgroundColor) 84%, black 16%);
@@ -147,7 +156,24 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
       word-break: break-word;
     }
 
+    .target-card__tag,
+    .target-card__severity {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
     @container target-card (max-width: 24rem) {
+      .target-card {
+        grid-template-rows: auto auto auto auto auto;
+      }
+
+      .target-card__topline,
+      .target-card__header,
+      .target-card__meta {
+        min-height: 0;
+      }
+
       .target-card__meta {
         grid-template-columns: 1fr;
       }
