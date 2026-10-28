@@ -46,7 +46,7 @@ const links = [
   </div>
 
   <div class="navbar__panel" id="primary-navigation" data-nav-panel>
-    <div class="navbar__links" aria-label="Directory listing">
+    <div class="navbar__links">
       {links.map((link) => (
         <a
           class:list={["navbar__link", pathname === link.href ? "is-active" : undefined]}
