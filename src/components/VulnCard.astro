@@ -1,6 +1,5 @@
 ---
 const { score, severity, published, cveID, title, category } = Astro.props;
-import { accentColor, accentColorHover, backgroundColor, foregroundColor, accentColorHover2 } from "../data/theme";
 ---
 
 <article class="vuln-card">
@@ -29,7 +28,7 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
   </dl>
 </article>
 
-<style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+<style>
   @layer components {
     .vuln-card {
       container-type: inline-size;
@@ -38,10 +37,10 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
       gap: 1rem;
       padding: 1rem;
       margin-bottom: 1rem;
-      border: 1px solid color-mix(in srgb, var(--accentColor) 55%, transparent);
-      border-radius: 1rem;
-      background: color-mix(in srgb, var(--backgroundColor) 92%, black 8%);
-      color: var(--foregroundColor);
+      border: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+      border-radius: var(--radius-md);
+      background: color-mix(in srgb, var(--color-background) 92%, black 8%);
+      color: var(--color-foreground);
     }
 
     .vuln-card__header {
@@ -51,7 +50,7 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
 
     .vuln-card__eyebrow {
       margin: 0;
-      color: var(--accentColorHover2);
+      color: var(--color-accent-hover-2);
       font-size: 0.875rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -59,7 +58,7 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
 
     .vuln-card__title {
       margin: 0;
-      color: var(--accentColor);
+      color: var(--color-accent);
       font-size: clamp(1.5rem, 4vw, 2.25rem);
       line-height: 1.1;
     }
@@ -75,12 +74,12 @@ import { accentColor, accentColorHover, backgroundColor, foregroundColor, accent
     .vuln-card__meta-item {
       padding: 0.85rem 1rem;
       border-radius: 0.85rem;
-      background: color-mix(in srgb, var(--backgroundColor) 82%, var(--accentColor) 18%);
+      background: color-mix(in srgb, var(--color-background) 82%, var(--color-accent) 18%);
     }
 
     .vuln-card__meta-item dt {
       margin: 0 0 0.35rem;
-      color: var(--accentColorHover);
+      color: var(--color-accent-hover);
       font-size: 0.8rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;

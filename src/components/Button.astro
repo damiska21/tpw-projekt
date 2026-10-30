@@ -13,14 +13,6 @@ const {
 const Element = href ? "a" : "button";
 const rel = isExternal ? "noopener noreferrer" : undefined;
 const target = isExternal ? "_blank" : undefined;
-
-import {
-  accentColor,
-  accentColorHover,
-  backgroundColor,
-  foregroundColor,
-  accentColorHover2,
-} from "../data/theme";
 ---
 
 <Element
@@ -40,14 +32,14 @@ import {
   <slot />
 </Element>
 
-<style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+<style>
   @layer components {
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--accentColor);
-      border-radius: 999px;
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-pill);
       padding: 0.7rem 1.1rem;
       cursor: pointer;
       transition:
@@ -58,8 +50,8 @@ import {
       text-decoration: none;
       font-weight: 700;
       line-height: 1.2;
-      background: var(--backgroundColor);
-      color: var(--foregroundColor);
+      background: var(--color-background);
+      color: var(--color-foreground);
     }
 
     .button:hover {
@@ -67,30 +59,30 @@ import {
     }
 
     .button:focus-visible {
-      outline: 2px solid var(--accentColorHover2);
+      outline: 2px solid var(--color-accent-hover-2);
       outline-offset: 3px;
     }
 
     .button--primary {
-      border-color: color-mix(in srgb, var(--accentColor) 75%, transparent);
-      background: color-mix(in srgb, var(--backgroundColor) 75%, var(--accentColor) 25%);
-      color: var(--accentColor);
+      border-color: color-mix(in srgb, var(--color-accent) 75%, transparent);
+      background: color-mix(in srgb, var(--color-background) 75%, var(--color-accent) 25%);
+      color: var(--color-accent);
     }
 
     .button--primary:hover {
-      background: color-mix(in srgb, var(--backgroundColor) 60%, var(--accentColor) 40%);
-      color: var(--accentColorHover2);
+      background: color-mix(in srgb, var(--color-background) 60%, var(--color-accent) 40%);
+      color: var(--color-accent-hover-2);
     }
 
     .button--secondary {
-      border-color: color-mix(in srgb, var(--foregroundColor) 50%, transparent);
+      border-color: color-mix(in srgb, var(--color-foreground) 50%, transparent);
       background: transparent;
-      color: var(--foregroundColor);
+      color: var(--color-foreground);
     }
 
     .button--secondary:hover {
-      border-color: color-mix(in srgb, var(--accentColorHover2) 75%, transparent);
-      color: var(--accentColorHover2);
+      border-color: color-mix(in srgb, var(--color-accent-hover-2) 75%, transparent);
+      color: var(--color-accent-hover-2);
     }
 
     .button--sm {

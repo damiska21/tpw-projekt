@@ -83,25 +83,35 @@ import {
 
   @layer tokens {
     :root {
+      --color-foreground: var(--foregroundColor);
+      --color-background: var(--backgroundColor);
+      --color-accent: var(--accentColor);
+      --color-accent-hover: var(--accentColorHover);
+      --color-accent-hover-2: var(--accentColorHover2);
       --space-1: 0.5rem;
       --space-2: 0.75rem;
       --space-3: 1rem;
       --space-4: 1.25rem;
+      --space-5: 1.2rem;
       --space-6: 1.5rem;
       --space-8: 2rem;
       --radius-sm: 0.75rem;
+      --radius-xs: 0.8rem;
       --radius-md: 1rem;
       --radius-lg: 1.5rem;
-      --shadow-card: 0 0 0 1px color-mix(in srgb, var(--accentColor) 15%, transparent);
-      --border-soft: color-mix(in srgb, var(--accentColor) 45%, transparent);
+      --radius-pill: 999px;
+      --font-size-eyebrow: 0.75rem;
+      --font-size-badge: 0.72rem;
+      --shadow-card: 0 0 0 1px color-mix(in srgb, var(--color-accent) 15%, transparent);
+      --border-soft: color-mix(in srgb, var(--color-accent) 45%, transparent);
     }
   }
 
   @layer base {
     :root {
       min-height: 100vh;
-      background-color: var(--backgroundColor);
-      color: var(--foregroundColor);
+      background-color: var(--color-background);
+      color: var(--color-foreground);
       font-family: "JetBrains Mono", monospace;
     }
 
@@ -112,9 +122,9 @@ import {
       flex-direction: column;
       overflow-x: hidden;
       background:
-        radial-gradient(circle at top, color-mix(in srgb, var(--accentColor) 10%, transparent), transparent 30%),
-        var(--backgroundColor);
-      color: var(--foregroundColor);
+        radial-gradient(circle at top, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 30%),
+        var(--color-background);
+      color: var(--color-foreground);
     }
 
     .site-main {
@@ -138,20 +148,29 @@ import {
     }
 
     :focus-visible {
-      outline: 2px solid var(--accentColorHover2);
+      outline: 2px solid var(--color-accent-hover-2);
       outline-offset: 3px;
     }
   }
 
   @layer components {
     a {
-      color: var(--accentColor);
+      color: var(--color-accent);
       transition: color 0.2s ease;
     }
 
-    a:hover {
-      color: var(--accentColorHover);
-    }
+  a:hover,
+  a:focus-visible {
+    color: var(--color-accent-hover);
+  }
+
+  ul {
+    padding-left: var(--space-4);
+  }
+
+  li {
+    margin-bottom: var(--space-1);
+  }
   }
 
   @layer utilities {

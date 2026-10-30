@@ -1,12 +1,5 @@
 ---
 import Button from "./Button.astro";
-import {
-  accentColor,
-  accentColorHover,
-  backgroundColor,
-  foregroundColor,
-  accentColorHover2,
-} from "../data/theme";
 
 const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const siteLabel = pathname === "/" ? "/home $ ls ~/" : `/home/site${pathname} $ ls ~/`;
@@ -90,7 +83,7 @@ const links = [
   document.addEventListener("astro:page-load", initNavbar);
 </script>
 
-<style define:vars={{ accentColor, backgroundColor, foregroundColor, accentColorHover, accentColorHover2 }}>
+<style>
   @layer components {
     .navbar {
       position: sticky;
@@ -101,8 +94,8 @@ const links = [
       width: 100%;
       box-sizing: border-box;
       padding: 1rem 1.25rem;
-      background: color-mix(in srgb, var(--backgroundColor) 88%, black 12%);
-      border-bottom: 1px solid color-mix(in srgb, var(--accentColor) 45%, transparent);
+      background: color-mix(in srgb, var(--color-background) 88%, black 12%);
+      border-bottom: 1px solid var(--border-soft);
       backdrop-filter: blur(8px);
     }
 
@@ -117,14 +110,14 @@ const links = [
       display: inline-flex;
       align-items: center;
       min-height: 2.5rem;
-      color: var(--accentColor);
+      color: var(--color-accent);
       font-weight: 700;
       text-decoration: none;
       white-space: nowrap;
     }
 
     .navbar__brand:hover {
-      color: var(--accentColorHover);
+      color: var(--color-accent-hover);
     }
 
     .navbar__brand-compact {
@@ -166,7 +159,7 @@ const links = [
       display: inline-flex;
       align-items: center;
       min-height: 2.5rem;
-      color: var(--foregroundColor);
+      color: var(--color-foreground);
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
@@ -174,12 +167,12 @@ const links = [
 
     .navbar__link:hover,
     .navbar__link:focus-visible {
-      color: var(--accentColorHover);
+      color: var(--color-accent-hover);
     }
 
     .navbar__link.is-active {
-      color: var(--accentColorHover2);
-      text-shadow: 0 0 0.4rem color-mix(in srgb, var(--accentColorHover2) 45%, transparent);
+      color: var(--color-accent-hover-2);
+      text-shadow: 0 0 0.4rem color-mix(in srgb, var(--color-accent-hover-2) 45%, transparent);
     }
 
     .navbar__toggle {
@@ -189,21 +182,21 @@ const links = [
       gap: 0.5rem;
       min-height: 2.3rem;
       padding: 0.35rem 0.7rem;
-      color: var(--foregroundColor);
-      border-color: color-mix(in srgb, var(--accentColor) 65%, transparent);
-      background: color-mix(in srgb, var(--backgroundColor) 78%, var(--accentColor) 22%);
-      box-shadow: inset 0 1px 0 color-mix(in srgb, var(--foregroundColor) 12%, transparent);
+      color: var(--color-foreground);
+      border-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
+      background: color-mix(in srgb, var(--color-background) 78%, var(--color-accent) 22%);
+      box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-foreground) 12%, transparent);
     }
 
     .navbar__toggle:hover {
-      background: color-mix(in srgb, var(--backgroundColor) 65%, var(--accentColor) 35%);
-      color: var(--accentColorHover2);
+      background: color-mix(in srgb, var(--color-background) 65%, var(--color-accent) 35%);
+      color: var(--color-accent-hover-2);
       transform: none;
     }
 
     .navbar__toggle[aria-expanded="true"] {
-      background: color-mix(in srgb, var(--backgroundColor) 60%, var(--accentColor) 40%);
-      color: var(--accentColorHover2);
+      background: color-mix(in srgb, var(--color-background) 60%, var(--color-accent) 40%);
+      color: var(--color-accent-hover-2);
     }
 
     .navbar__toggle-icon {

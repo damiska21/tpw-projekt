@@ -35,13 +35,13 @@ const targetList = targets.targets;
 <style>
   .targets-page {
     display: grid;
-    gap: 1rem;
-    padding: 2rem 0 1rem;
+    gap: var(--space-3);
+    padding: var(--space-8) 0 var(--space-3);
   }
 
   .hero__eyebrow {
-    color: var(--accentColorHover2);
-    font-size: 0.75rem;
+    color: var(--color-accent-hover-2);
+    font-size: var(--font-size-eyebrow);
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
@@ -53,6 +53,6 @@ const targetList = targets.targets;
   .targets-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.2rem;
+    gap: var(--space-5);
   }
 </style>
